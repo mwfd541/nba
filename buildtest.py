@@ -1,8 +1,5 @@
-import urllib2
-import requests  
-import json  
+
 import pandas as pd
-import numpy as np
 import datetime
 
 

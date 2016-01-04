@@ -1,11 +1,8 @@
 import urllib2
-import requests  
-import json  
 import pandas as pd
-import numpy as np
 from datetime import datetime
 
-app = True   # If starting from scratch, this should be set to 'False' 
+app = False   # If starting from scratch, this should be set to 'False' 
 if app: print 'we are appending to an old train file, correct?'
 else : print  'we are starting from scratch, correct?'
 ####  Start by downloading data from nba.com
@@ -27,8 +24,9 @@ def load():   ### first thing we do is go get all of the data for the entire yea
 				fout.write('\n')
 
 				
-def games_not_processed():   ## returns a dataframe of games which have not been added to the processed list.  Also returns a set of games, which will be added to the processed list once processing is complete.
-	glist = pd.read_csv('gamesprocessed.csv')
+def games_not_processed(app):   ## returns a dataframe of games which have not been added to the processed list.  Also returns a set of games, which will be added to the processed list once processing is complete.
+	try : glist = pd.read_csv('gamesprocessed.csv')
+	except : app = False
 	if app==False : 
 		print 'starting from empty gamesprocessed file'
 		glist = pd.read_csv('emptygamesprocessed.csv')
@@ -125,7 +123,7 @@ def build_train(recent_df):  #recent_df should be the raw data from nba.com for 
 
 
 load()
-df1, b = games_not_processed()
+df1, b = games_not_processed(app)
 print 'processing games' , list(b)
 print 'computing home away'
 df1 = df1
