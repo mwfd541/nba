@@ -1,0 +1,23 @@
+
+Fixes needed:
+The buildtrain file needs to determine which players were on the roster but didn't play, and put a zero record.  Similarly, some more features should be used in the ML to determine the bench players, whose predictions seem abnormally high.  
+
+
+
+
+The following are things I'm hoping to do.
+
+1) Instead of predicting points/game for each player, predict statistics/minute, and then compute points/minute, and then find a way to predict the minutes for a given game.   This may requires a bit of scraping and analysis of injury reports and game odd.  
+
+2)Do all the predictions with an ensemble of ML methods (so far it's just xgboost) 
+
+3)Instead of predicting a single expected value for each game, predict a probability distribution.  My feeling is that mean and variance can be much improved upon. For example,  I'm thinking maybe a five points quintile probability distribution:  One can use the Wasserstein distance to replace the RMSE for the energy function in the training. In order to implement this, one needs to dive into the underlying ML code, which might be difficult. For example, when doing some decision tree method, instead of returning the mean over a leaf, one would return a probability distribution from a certain class of distributions with the smallest Wasserstein distance from that of the leaf.  Then, a little more math is involved in order to best average the distributions. 
+
+4) Build a program that back-tests different algos and ensembles.  I have saved a few of the files from FanDuel that can be plugged in.
+
+5) Try to predict what rosters the other DFS players will play. I can't seem to find away to scrape the FD data. I can browse, but can't seem to scrape the other lineups for past contests.   I have had some success at geussing the percentage of lineups that include a certain player, very roughly, but not so much the actual lineups.  
+
+
+More details
+
+1) Minutes are determined by a number of factors.  The better players are more likely to play long minutes in close games with rivals.  Close games also occasionally become overtime games, in which the points can really rack up. Injuries obviously make a big difference - to get to the bottom of this one would need to scrape depth charts, and see what has happened historically when certain players have gone down.   Also, it would be nice to get a sense of what we can guess from 'Game-Time-Decision' or 'probable.'
