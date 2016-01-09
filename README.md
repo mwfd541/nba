@@ -18,9 +18,11 @@ As of now, in order to use it you need the following files present in the direct
 
 4)opponents.csv
 
-5)If you're appending, you should have trainsmall.csv 
+5)team_dict.csv
 
-1)-4) are available in this repository and contain static data.  To apply to an upcoming FD contest, download the contest's csv from FD and save it in the directory as
+6)If you're appending, you should have trainsmall.csv 
+
+1)-5) are available in this repository and contain static data.  To apply to an upcoming FD contest, download the contest's csv from FD and save it in the directory as
 
 6) current.csv
 
@@ -52,4 +54,4 @@ It appears that the gamelog that get scraped doesn't create a record for players
 
 ## Notes on strategy
 
-Finding the right metric or energy is tricky.   RMSE may nail most of the predictions but if one is well over-estimated and you include that guy in your lineup and your lineup is ruined.  
+Finding the right metric or energy is tricky.   RMSE may nail most of the predictions but if one is well over-estimated and you include that guy in your lineup,  your lineup is ruined.  
