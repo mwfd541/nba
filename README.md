@@ -55,3 +55,5 @@ It appears that the gamelog that get scraped doesn't create a record for players
 ## Notes on strategy
 
 Finding the right metric or energy is tricky.   RMSE may nail most of the predictions but if one is well over-estimated and you include that guy in your lineup,  your lineup is ruined.  
+
+My strategy at this point is to use the predictions for FD points per minute * expected minutes, and run an optimizer.  (I'll worry about maximizing the variance soon enough.)  Then what I try to do is read the injury reports and try to modify the expected minutes of the players that will be affected by the injury.   Unfortunately, this is somewhat painstaking and often happens during the workday, so I don't usually get to it.  The real bargains are to be had when the team announces that a player will be out for the upcoming game.  
