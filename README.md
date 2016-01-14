@@ -40,7 +40,7 @@ To start, we have xgboost running, which uses the final FanDuel score as a targe
 
 Recently added xgbmulti.py.  This saves each of the predictions in a file named by the date.  All are using xgboost.  One prediction is the straightforward one, another predicts minutes and FDpoints/minute, another predicts each statistic.  The final two use error functions what punish over and under estimations more severely, respectively.    My plan is to go back and compare which predictions (or ensembles) are the most useful and how.   
 
-Outputs to nbapred.csv 
+ xgb_fd.py outputs to nbapred.csv , xgbmult.py outputs to a file named by the date.  
 
 ### 4 Generate a roster -    linrand.py or nbaopt.py
 
