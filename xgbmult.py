@@ -11,7 +11,7 @@ print "today's date is ",  TODAY.strftime("%m%d")
 
 
 
-STOPPING = 100
+STOPPING = 200
 BOOST = 50000
 
 ## Start of main script
@@ -19,7 +19,9 @@ train = pd.read_csv("train.csv")
 test = pd.read_csv("test.csv")
 #ids=test[['PLAYER_ID','PLAYER_NAME']]
 
-test.fillna(111, inplace=True)
+train.fillna(-1,inplace=True, downcast = 'infer')  
+test.fillna(-1,inplace=True, downcast = 'infer')
+
 
 features_train = train.columns[51:56]
 features_test = test.columns[-5:]
