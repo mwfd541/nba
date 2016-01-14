@@ -1,4 +1,4 @@
-import urllib2
+import requests
 import pandas as pd
 from datetime import datetime
 
@@ -7,22 +7,16 @@ if app: print 'we are appending to an old train file, correct?'
 else : print  'we are starting from scratch, correct?'
 ####  Start by downloading data from nba.com
 def load():   ### first thing we do is go get all of the data for the entire year and save it into 2015games.csv
-	url = urllib2.urlopen('http://stats.nba.com/stats/leaguegamelog?Counter=1000000&Direction=DESC&LeagueID=00&PlayerOrTeam=P&Season=2015-16&SeasonType=Regular+Season&Sorter=PTS')
-	
-	#f = open('leaguegamelog', 'r')   
 	fout = open('2015games.csv', 'w')
-
-	fout.write('"SEASON_ID","PLAYER_ID","PLAYER_NAME","TEAM_ABBREVIATION","TEAM_NAME","GAME_ID","GAME_DATE","MATCHUP","WL","MIN","FGM","FGA","FG_PCT","FG3M","FG3A","FG3_PCT","FTM","FTA","FT_PCT","OREB","DREB","REB","AST","STL","BLK","TOV","PF","PTS","PLUS_MINUS","VIDEO_AVAILABLE" \n')
-	for line in url:
-		try : line = line.split('"rowSet":[')[1]
-		except : pass
-		s = line.split(']')
-		for t in s:
-			t = t[2:]
-			if len(t)>0:
-				fout.write(t)
-				fout.write('\n')
-
+	r = requests.get('http://stats.nba.com/stats/leaguegamelog?Counter=1000000&Direction=DESC&LeagueID=00&PlayerOrTeam=P&Season=2015-16&SeasonType=Regular+Season&Sorter=PTS')
+	data = r.json().get('resultSets', [])[0]
+	headers = data.get('headers', [])
+	rows = data.get('rowSet', [])
+	fout.write(','.join(headers))
+	fout.write('\n')
+	for row in rows:
+		fout.write(','.join([str(r) for r in row]))
+		fout.write('\n')
 				
 def games_not_processed(app):   ## returns a dataframe of games which have not been added to the processed list.  Also returns a set of games, which will be added to the processed list once processing is complete.
 	try : glist = pd.read_csv('gamesprocessed.csv')
