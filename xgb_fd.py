@@ -12,7 +12,8 @@ train = pd.read_csv("train.csv")
 test = pd.read_csv("test.csv")
 #ids=test[['PLAYER_ID','PLAYER_NAME']]
 
-test.fillna(111, inplace=True)
+train.fillna(-1,inplace=True, downcast = 'infer')  
+test.fillna(-1,inplace=True, downcast = 'infer')
 
 features_train = train.columns[51:56]
 features_test = test.columns[-5:]
@@ -25,8 +26,6 @@ other14_features = test.columns.values[26:46]
 features_test = team_dummies+player_dummies+position_dummies+['home','away','rest','recent_minutes','AGE']+list(other14_features)
 
 features_train =features_test 
-
-
 
 print('training data processed')
 def rmspe(y, yhat):
@@ -46,10 +45,10 @@ print("Train xgboost model")
 params = {"objective": "reg:linear",
           "booster" : "gbtree",
           "eta": 0.003,
-          "max_depth": 9,
+          "max_depth": 12,
           "subsample": 0.85,
           "colsample_bytree": 0.4,
-          "min_child_weight": 4,
+          "min_child_weight": 1,
           "silent": 1,
           "thread": 1,
           "seed": 104
@@ -76,9 +75,7 @@ print('RMSPE: {:.6f}'.format(error))
 print("Make predictions on the test set")
 dtest = xgb.DMatrix(test[features_test])
 test_probs = gbm.predict(dtest)
-# Make Submission
 result = pd.DataFrame({"Id": test["Id"], 'FanDuel': test_probs, 'FPPG_historical' : test['FPPG'], 'Salary': test['Salary'], 'Team': test['Team']})
-#result = pd.merge(result, ids, on='PLAYER_ID', how='left')
 print (result.head(10))
 
 result.to_csv("nbapred.csv", index=False)
