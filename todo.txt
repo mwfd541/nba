@@ -7,7 +7,8 @@ The buildtrain file needs to determine which players were on the roster but didn
 
 The following are things I'm hoping to do.
 
-1) (Done xgbmult.py) Instead of predicting points/game for each player, predict statistics/minute, and then compute points/minute, and then find a way to predict the minutes for a given game.   This may requires a bit of scraping and analysis of injury reports and game odd.  
+(Done - xgbmult.py) Instead of predicting points/game for each player, predict statistics/minute, and then compute points/minute, and then find a way to predict the minutes for a given game.   This may requires a bit of scraping and analysis of injury reports and game odd.  
+1) Compute the error in past games for each player and take some  average of this. Then, use this as a feature in the xgboost.  Because some players appear to be heavily overestimated, this extra feature should allow the decision tree to distinguish these from whomever they're being confused with. 
 
 2)Do all the predictions with an ensemble of ML methods (so far it's just xgboost) 
 
