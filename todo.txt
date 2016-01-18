@@ -18,7 +18,7 @@ The following are things I'm hoping to do.
 
 5) Try to predict what rosters the other DFS players will play. I can't seem to find away to scrape the FD data. I can browse, but can't seem to scrape the other lineups for past contests.   I have had some success at geussing the percentage of lineups that include a certain player, very roughly, but not so much the actual lineups.  
 
-6) Make some simple assumptions about the distribution of points and use this to optimize the chances of being in the 80th percentile.  
+6) Make some simple assumptions about the distribution of points and use this to optimize the chances of being in the 80th percentile.  This I think can be done using basic modern portfolio theory, in particular formulas for Portfolio return variance and Portfolio return volatility (standard deviation)
 
 More details
 
