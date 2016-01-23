@@ -42,11 +42,13 @@ Recently added xgbmulti.py.  This saves each of the predictions in a file named 
 
  xgb_fd.py outputs to nbapred.csv , xgbmult.py outputs to a file named by the date.  
 
-### 4 Generate a roster -    linrand.py or nbaopt.py
+### 4 Generate a roster -    linrand.py or nbaopt.py.   Recently added buildteams and montecarlo
 
 These read the data for from nbapredict.csv and the attempts to generate the roster with the highest expected value of points. (This may or not be the best strategy, depending on the contest, but the question of the best strategy is an extremely difficult problem.) 
 To get the optimal one, run nbaopt.py.   To generate some other nearby lineups use linrand.py.  The latter uses linear programming, which is relatively fast (as opposed to binary linear programming.)  Linear programming has the disadvantage that the optimizer will often involve fractional players, which won't work for our purposes.  To deal with this we perturb the problem, solve the problem and then extract a (non-fractional) team from this, and test that it still satisfies the constraints.   The output is a sequence of teams with increasing expected value.  Usually, the first few can be ignored, but the latter ones tend to converge towards the optimal team.   
 If you are using this to create a roster, be careful to make sure everything smells right:  It does funny things like predicting high scores for rookies who have yet to play in any games or are not even on the roster.  For example, the prediction for Rakeen Christmas seems to be some sort of league average, but because this salary is so low, he almost always ends up on the roster.  So you may have to delete him explicitly either current.csv file.   
+
+The buildteams.py will generate a collection of teams in the same linear programming way as linrand. There are some parameters that can be tuned if the teams are too concentrated or too random.   After generating a number of these montecarlo runs a number of simulations, and ranks the teams for each simulations and then gives back the teams which show up most frequently in the top fifth, third and half.  After observing that the median of a contest varies quite a bit day-to-day, despite the expected mean or median staying close - it seems that what one should do, instead of "maximize variance" one should try to "maximize relative variance" under the realization that many of the competiting rosters will be somewhat similar. This is an attempt to follow this strategy. 
 
 ## Bugs/Errors
 It appears that the gamelog that get scraped doesn't create a record for players that don't enter the game.   So a bunch of zero values are being ignored in the training.  I don't think this is likely to cause a problem, as the guys that far down on the bench are not likely to make it into any lineups.  
