@@ -7,7 +7,8 @@ The buildtrain file needs to determine which players were on the roster but didn
 
 The following are things I'm hoping to do.
 
-1) Instead of predicting points/game for each player, predict statistics/minute, and then compute points/minute, and then find a way to predict the minutes for a given game.   This may requires a bit of scraping and analysis of injury reports and game odd.  
+(Done - xgbmult.py) Instead of predicting points/game for each player, predict statistics/minute, and then compute points/minute, and then find a way to predict the minutes for a given game.   This may requires a bit of scraping and analysis of injury reports and game odd.  
+1) Compute the error in past games for each player and take some  average of this. Then, use this as a feature in the xgboost.  Because some players appear to be heavily overestimated, this extra feature should allow the decision tree to distinguish these from whomever they're being confused with. 
 
 2)Do all the predictions with an ensemble of ML methods (so far it's just xgboost) 
 
@@ -17,6 +18,7 @@ The following are things I'm hoping to do.
 
 5) Try to predict what rosters the other DFS players will play. I can't seem to find away to scrape the FD data. I can browse, but can't seem to scrape the other lineups for past contests.   I have had some success at geussing the percentage of lineups that include a certain player, very roughly, but not so much the actual lineups.  
 
+6) Make some simple assumptions about the distribution of points and use this to optimize the chances of being in the 80th percentile.  This I think can be done using basic modern portfolio theory, in particular formulas for Portfolio return variance and Portfolio return volatility (standard deviation)
 
 More details
 

@@ -40,7 +40,7 @@ To start, we have xgboost running, which uses the final FanDuel score as a targe
 
 Recently added xgbmulti.py.  This saves each of the predictions in a file named by the date.  All are using xgboost.  One prediction is the straightforward one, another predicts minutes and FDpoints/minute, another predicts each statistic.  The final two use error functions what punish over and under estimations more severely, respectively.    My plan is to go back and compare which predictions (or ensembles) are the most useful and how.   
 
-Outputs to nbapred.csv 
+ xgb_fd.py outputs to nbapred.csv , xgbmult.py outputs to a file named by the date.  
 
 ### 4 Generate a roster -    linrand.py or nbaopt.py
 
@@ -55,3 +55,5 @@ It appears that the gamelog that get scraped doesn't create a record for players
 ## Notes on strategy
 
 Finding the right metric or energy is tricky.   RMSE may nail most of the predictions but if one is well over-estimated and you include that guy in your lineup,  your lineup is ruined.  
+
+My strategy at this point is to use the predictions for FD points per minute * expected minutes, and run an optimizer.  (I'll worry about maximizing the variance soon enough.)  Then what I try to do is read the injury reports and try to modify the expected minutes of the players that will be affected by the injury.   Unfortunately, this is somewhat painstaking and often happens during the workday, so I don't usually get to it.  The real bargains are to be had when the team announces that a player will be out for the upcoming game.  
